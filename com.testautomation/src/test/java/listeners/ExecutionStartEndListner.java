@@ -2,6 +2,7 @@ package listeners;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import javax.mail.MessagingException;
 
@@ -53,6 +54,9 @@ public class ExecutionStartEndListner extends Utility implements IExecutionListe
 			}
 		}
 		//4. Generate Comparison sheet 
+		ReportFactoryDB.switchOn();
+		// Local flat file sqlite database
+		ReportFactoryDB.initSqlite(Paths.get("").toAbsolutePath().toString() + "\\ExecutionReports\\DB");
 		ReportFactoryDB.getComparisonReport(GlobalUtil.getCommonSettings().getProjectName());
 		
 		//5. Rename test file
